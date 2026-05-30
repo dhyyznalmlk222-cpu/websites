@@ -1,26 +1,26 @@
-# Introduction
+# مقدمة.
 
-Shizuku can help normal apps uses system APIs directly with adb/root privileges with a Java process started with app_process.
+يمكن أن تساعد Shizuku التطبيقات العادية على استخدام واجهات برمجة تطبيقات النظام مباشرة مع امتيازات adb / الجذر مع عملية Java التي بدأت باستخدام app_process.
 
-The name Shizuku comes from [a character](https://danbooru.donmai.us/posts/3553474).
+اسم شيزوكو يأتي من [شخصية.](https://danbooru.donmai.us/posts/3553474).
 
-## Why was Shizuku born?
+## لماذا ولد شيزوكو؟
 
-The birth of Shizuku has two main purposes.
+ولادة شيزوكو لها غرضان رئيسيان.
 
-1. Provide a convenient way to use system APIs
-2. Convenient for the development of some apps that only requires adb permissions
+1. توفير طريقة مريحة لاستخدام واجهات برمجة تطبيقات النظام
+2. مريحة لتطوير بعض التطبيقات التي تتطلب فقط أذونات ADB.
 
-## Shizuku vs. "Old school" method
+## شيزوكو مقابل طريقة "المدرسة القديمة"
 
-### "Old school" method
+### طريقة "المدرسة القديمة"
 
-For example, to enable/disable components, some apps that require root privileges execute `pm disable` directly in `su`.
+على سبيل المثال، لتمكين / تعطيل المكونات، يتم تنفيذ بعض التطبيقات التي تتطلب امتيازات الجذر. 
 
-1. Execute `su`
-2. Execute `pm disable`
-3. (pre-Pie) Start the Java process with app_process ([see here](https://android.googlesource.com/platform/frameworks/base/+/oreo-release/cmds/pm/pm))
-4. (Pie+) Execute the native program `cmd` ([see here](https://android.googlesource.com/platform/frameworks/native/+/pie-release/cmds/cmd/))
+1. تنفيذ "سو"
+2. تنفيذ.'PM تعطيل'
+3. (ما قبل فطيرة) بدء عملية جافا مع app_process ([انظر هنا.](https://android.googlesource.com/platform/frameworks/base/+/oreo-release/cmds/pm/pm))
+4.  (Pie+) تنفيذ البرنامج الأصلي 'cmd` ([انظر هنا.](https://android.googlesource.com/platform/frameworks/native/+/pie-release/cmds/cmd/))
 5. Process the parameters, interact with the system server through the binder, and process the result to output the text result.
 
 Each of the "Execute" means a new process creation, su internally uses sockets to interact with the su daemon, and a lot of time and performance are consumed in such process. (Some poorly designed app will even execute `su` **every time** for each command)
